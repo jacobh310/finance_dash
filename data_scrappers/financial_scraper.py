@@ -2,7 +2,6 @@ import yfinance as yf
 import pandas as pd
 import  numpy as np
 import requests
-from bs4 import BeautifulSoup as bs
 
 
 

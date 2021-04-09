@@ -56,11 +56,12 @@ if dashboard == options[0]:
 if dashboard == options[1]:
 
     col1, col2 = st.beta_columns(2)
-    twitter_sentiments = util.get_twitter_sentiment()
-    wsb_sentiments = util.get_wsb_sentiment()
 
-    twitter_avg_sent = twitter_sentiments.groupby('ticker').mean()['compound']
-    wsb_avg_sent = wsb_sentiments.groupby('ticker').mean()['compound']
+    twitter_sentiments = pd.read_csv('D:\\Github\\financial_dashboard\Sentiment_analysis\\tweet_sentiments.csv')
+    wsb_sentiments = pd.read_csv('D:\\Github\\financial_dashboard\Sentiment_analysis\\wsb_titles_sentiments.csv')
+
+    twitter_avg_sent = twitter_sentiments.groupby('Ticker').mean()['compound']
+    wsb_avg_sent = wsb_sentiments.groupby('Ticker').mean()['compound']
 
     col1.header('Twitter')
     col1.plotly_chart(util.weekly_sent_bar(twitter_avg_sent))
@@ -69,7 +70,7 @@ if dashboard == options[1]:
     col2.plotly_chart(util.weekly_sent_bar(wsb_avg_sent))
 
     st.markdown("<h2 style='text-align: center; color:#295E61 ;'>Twitter Sentiment over the Past  7 days</h2>",  unsafe_allow_html=True)
-    avg_sent_day = twitter_sentiments.groupby(['ticker','tweet_date']).mean()['compound']
+    avg_sent_day = twitter_sentiments.groupby(['Ticker','Date']).mean()['compound']
     st.plotly_chart(util.daily_sent(avg_sent_day,twitter_avg_sent.index))
 
 
@@ -84,6 +85,7 @@ if dashboard == options[2]:
                            label="Number of tweets",
                            step = 100,
                            value=1000)
+
     df = util.tweet_sent_for_stock(ticker,num_tweets)
     avg_daily_sentiment = df.groupby('Date').mean()['compound']
     st.dataframe(avg_daily_sentiment)
