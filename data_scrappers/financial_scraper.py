@@ -4,9 +4,6 @@ import  numpy as np
 import requests
 
 
-
-# ticker = 'AAPL'
-
 def get_metrics(ticker):
     stock = yf.Ticker(ticker)
     url = f'https://finance.yahoo.com/quote/{ticker}/key-statistics?p={ticker}'
@@ -16,7 +13,7 @@ def get_metrics(ticker):
     income_statement = stock.financials
     cash_flow = stock.cashflow
 
-    ## yearly metrics
+    # yearly metrics
     revenue = income_statement.loc['Total Revenue']
     gross_profit = income_statement.loc['Gross Profit']
     try: gross_margin =  gross_profit/revenue

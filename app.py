@@ -23,6 +23,8 @@ if dashboard == options[0]:
 
     st.plotly_chart(util.plot_candle_sticks(ticker,price_data))
 
+    st.header(f'{ticker} Overview')
+    st.dataframe(fs.get_summary(ticker))
     st.markdown("<h2 style='text-align: center; color:#295E61 ;'>Fundamentals and Metrics</h2>",
                 unsafe_allow_html=True)
 
