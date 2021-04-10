@@ -9,11 +9,11 @@ st.markdown("<h1 style='text-align: center; color:#295E61 ;'>Financial Dashboard
             unsafe_allow_html=True)
 
 options = ('Fundamentals','Twitter and Reddit Sentiment Analysis','Stock Sentiment Analysis')
-dashboard = st.sidebar.selectbox('Which Dashboard',options,index=2)
+dashboard = st.sidebar.selectbox('Which Dashboard',options,index=0)
 
 if dashboard == options[0]:
 
-    tickers = pd.read_csv('D:\\Github\\financial_dashboard\data_scrappers\\tickers.csv', header=None, names=['Tickers'])
+    tickers = pd.read_csv('data_scrappers\\tickers.csv', header=None, names=['Tickers'])
     tickers['Tickers'] = tickers['Tickers'].str[:-2]
     tickers = tickers['Tickers'].tolist()
 
@@ -57,8 +57,8 @@ if dashboard == options[1]:
 
     col1, col2 = st.beta_columns(2)
 
-    twitter_sentiments = pd.read_csv('D:\\Github\\financial_dashboard\Sentiment_analysis\\tweet_sentiments.csv')
-    wsb_sentiments = pd.read_csv('D:\\Github\\financial_dashboard\Sentiment_analysis\\wsb_titles_sentiments.csv')
+    twitter_sentiments = pd.read_csv('Sentiment_analysis\\tweet_sentiments.csv')
+    wsb_sentiments = pd.read_csv('Sentiment_analysis\\wsb_titles_sentiments.csv')
 
     twitter_avg_sent = twitter_sentiments.groupby('Ticker').mean()['compound']
     wsb_avg_sent = wsb_sentiments.groupby('Ticker').mean()['compound']
@@ -75,7 +75,7 @@ if dashboard == options[1]:
 
 
 if dashboard == options[2]:
-    tickers = pd.read_csv('D:\\Github\\financial_dashboard\data_scrappers\\tickers.csv', header=None, names=['Tickers'])
+    tickers = pd.read_csv('data_scrappers\\tickers.csv', header=None, names=['Tickers'])
     tickers['Tickers'] = tickers['Tickers'].str[:-2]
     tickers = tickers['Tickers'].tolist()
 

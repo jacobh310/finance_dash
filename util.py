@@ -67,31 +67,7 @@ def plot_metrics(df,df2,height):
 
     return fig
 
-def get_twitter_sentiment():
 
-    engine = create_engine(config.heroku_database_uri)
-
-    df = pd.read_sql("""SELECT 
-        tweet_date, 
-        ticker, 
-        compound
-    FROM twitter_sentiment
-    where tweet_date > current_date - interval '9 days'""", engine)
-
-    return df
-
-def get_wsb_sentiment():
-
-    engine = create_engine(config.heroku_database_uri)
-
-    df = pd.read_sql("""SELECT 
-        date_added,
-        ticker, 
-        compound
-    FROM wsb_sentiment
-    where date_added > current_date - interval '9 days'""", engine)
-
-    return df
 
 def weekly_sent_bar(df):
     fig=go.Figure()
