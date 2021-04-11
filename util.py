@@ -110,8 +110,8 @@ def recommendations(df):
 
 def tweet_sent_for_stock(ticker, num):
 
-    auth = tweepy.OAuthHandler(config.key, config.key_secret)
-    auth.set_access_token(config.token, config.token_secret)
+    auth = tweepy.OAuthHandler(settings.key, settings.key_secret)
+    auth.set_access_token(settings.token, settings.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     count = num
