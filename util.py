@@ -2,7 +2,7 @@ import  plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import pandas as pd
 from sqlalchemy import create_engine
-import config
+# import config
 import tweepy
 import time
 from data_cleaning.data_cleaning import cleaner
