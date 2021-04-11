@@ -24,36 +24,38 @@ if dashboard == options[0]:
     st.plotly_chart(util.plot_candle_sticks(ticker,price_data))
 
     st.header(f'{ticker} Overview')
-    st.dataframe(fs.get_summary(ticker))
     st.markdown("<h2 style='text-align: center; color:#295E61 ;'>Fundamentals and Metrics</h2>",
                 unsafe_allow_html=True)
 
+
     ticker2 = st.selectbox('Stock to compare to', tickers , index=tickers.index('AAPL'))
+    valuation = fs.get_metrics(ticker)
+    valuation2 = fs.get_metrics(ticker2)
 
     col1, col2 = st.beta_columns(2)
 
-    yearly, quarter = fs.get_metrics(ticker)
-    yearly2, quarter2 = fs.get_metrics((ticker2))
+    col1.subheader(f'{ticker} metrics')
+    col1.write(valuation.T)
 
-    col1.markdown(f"<h2 style='text-align: left; color:#295E61 ;'>{ticker} Yearly Metrics</h2>",  unsafe_allow_html=True)
-    yearly = yearly.astype(float).round(3)
-    col1.dataframe(yearly.T)
 
-    col1.markdown(f"<body style='text-align: left; color:#0000FF ;'>{ticker}</body>", unsafe_allow_html=True)
-    col1.markdown(f"<body style='text-align: left; color:#FF0000 ;'>{ticker2}</body>", unsafe_allow_html=True)
+    valuation= fs.clean_val(valuation)
+    valuation2 =fs.clean_val(valuation2)
 
-    col1.plotly_chart(util.plot_metrics(yearly,yearly2, 1500))
-    col1.header(f'Yahoo Analyst Recommendations for {ticker}')
-    col1.plotly_chart(util.recommendations(fs.get_reccomendations(ticker)))
+    col1.markdown(f"<body style='text-align: left; color:#0000FF ;'>{ticker}</body>",  unsafe_allow_html=True)
+    col1.markdown(f"<body style='text-align: left; color:#FF0000 ;'>{ticker2}</body>",  unsafe_allow_html=True)
+    col1.plotly_chart(util.plot_metrics(valuation,valuation2, 2000))
 
-    col2.markdown(f"<h2 style='text-align: left; color:#295E61 ;'>{ticker} Quarterly Metrics</h2>",  unsafe_allow_html=True)
-    quarter = quarter.astype(float).round(3)
-    col2.dataframe(quarter.T, height = 350)
+    col2.subheader(f'{ticker2} metrics')
+    col2.write(valuation2.T)
 
-    col2.markdown(f"<body style='text-align: left; color:#0000FF ;'>{ticker}</body>",  unsafe_allow_html=True)
-    col2.markdown(f"<body style='text-align: left; color:#FF0000 ;'>{ticker2}</body>",  unsafe_allow_html=True)
+    col2.subheader(f'Yahoo Analyst Recommendations for {ticker}')
+    col2.plotly_chart(util.recommendations(fs.get_reccomendations(ticker)))
 
-    col2.plotly_chart(util.plot_metrics(quarter,quarter2,3500))
+    if ticker != ticker2:
+        col2.subheader(f'Yahoo Analyst Recommendations for {ticker2}')
+        col2.plotly_chart(util.recommendations(fs.get_reccomendations(ticker2)))
+
+
 
 if dashboard == options[1]:
 

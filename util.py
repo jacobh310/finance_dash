@@ -2,12 +2,13 @@ import  plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import pandas as pd
 from sqlalchemy import create_engine
-# import config
+import config
 import tweepy
 import time
 from data_cleaning.data_cleaning import cleaner
 from Sentiment_analysis.vader_model import sentiment_df
 import settings
+
 
 def plot_candle_sticks(ticker, price_data):
     days = 200
@@ -43,7 +44,11 @@ def plot_candle_sticks(ticker, price_data):
                       height=700)
     return fig
 
+
+
+
 def plot_metrics(df,df2,height):
+
 
     fig = make_subplots(
         rows=len(df.columns) + 1 , cols=1,
@@ -51,12 +56,14 @@ def plot_metrics(df,df2,height):
     i = 1
     for col in df.columns:
 
+        x1 = df.index
+        x2 = df2.index
         fig.add_trace(
-            go.Scatter(x=df.index, y=df[col],
+            go.Scatter(x=x1, y=df[col],
                        line=dict(color='blue', width=1)),
             row=i, col=1)
         fig.add_trace\
-            (go.Scatter(x=df2.index, y=df2[col],
+            (go.Scatter(x=x2, y=df2[col],
                 line=dict(color='red', width=1)),
         row=i, col=1)
         i += 1
@@ -103,8 +110,8 @@ def recommendations(df):
 
 def tweet_sent_for_stock(ticker, num):
 
-    auth = tweepy.OAuthHandler(settings.key, settings.key_secret)
-    auth.set_access_token(settings.token, settings.token_secret)
+    auth = tweepy.OAuthHandler(config.key, config.key_secret)
+    auth.set_access_token(config.token, config.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     count = num
