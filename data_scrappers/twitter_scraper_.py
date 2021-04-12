@@ -4,22 +4,19 @@ import tweepy
 import config
 
 
-def get_tweets():
+def get_tweets(tickers):
 
     auth = tweepy.OAuthHandler(config.key, config.key_secret)
     auth.set_access_token(config.token, config.token_secret)
 
     api = tweepy.API(auth,wait_on_rate_limit=True)
 
-    wsb_tickers = pd.read_csv('data_scrappers\\wsb_tickers.csv',names=['Tickers'],header =0)
-    wsb_tickers = wsb_tickers.sort_values(by = 'Tickers', ascending=False)
-    top_15_tickers = wsb_tickers.head(15).index
-    # top_15_comp_name = [yf.Ticker(ticker).info['shortName'].split()[0] for ticker in top_15_tickers]
 
-    count = 10000
+
+    count = 15000
 
     df = pd.DataFrame()
-    for ticker in top_15_tickers:
+    for ticker in tickers:
         try:
             # Creation of query method using parameters
             tweets = tweepy.Cursor(api.search, q=ticker,count=450, lang='en',result_type='mixed').items(count)
@@ -37,6 +34,8 @@ def get_tweets():
 
     return df
 if __name__ == "__main__":
-
-    df = get_tweets()
+    wsb_tickers = pd.read_csv('data_scrappers\\wsb_tickers.csv',names=['Tickers'],header =0)
+    wsb_tickers = wsb_tickers.sort_values(by = 'Tickers', ascending=False)
+    top_15_tickers = wsb_tickers.head(15).index
+    df = get_tweets(top_15_tickers)
     df.to_csv('tweets.csv')
