@@ -14,8 +14,10 @@ This web app is comprised of three different dashboards.
 - the wall street bets subreddit was scrapped to find the most popular tickers. 
 - Reddit post from wall streat bets and tweets containing the most popular tickers from wall street bets were scrapped 
 ### Data Evalutation 
-- tweets and wallstreet bets post are evulated for sentiment using the VADER sentiment model and plotted for weekly average and daily average over a week 
-![Alt text](/images/twitter_daily.jpg?raw=true "Optional Title")
+- tweets and wallstreet bets post are evulated for sentiment using the VADER sentiment model and plotted for weekly average and daily average over a week   
+
+![Alt text](finance_dash_csv/images/twitter_daily.jpg?raw=true "Sentiment")
+
 ## Twitter Sentiment Analaysis 
 - Collects tweets containing the ticker that the user inputed.
 - Outputs a bar plot of the twitter daily sentiment 
