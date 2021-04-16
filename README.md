@@ -1,7 +1,7 @@
 # Finance and Market Dashboard
 ---
 This web app is comprised of three different dashboards.
-1) In the Stock Financials and Funementals
+1) Stock Financials and Funementals
 2) Wall street bets and twitter sentiment analaysis 
 3) Twitter Sentiment Analaysis 
 
