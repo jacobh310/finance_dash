@@ -5,7 +5,7 @@ This web app is comprised of three different dashboards.
 2) Wall street bets and twitter sentiment analaysis 
 3) Twitter Sentiment Analaysis 
 
-Version using postgres databas: https://github.com/jacobh310/finance_dashboard_postgres
+Version using postgres database: https://github.com/jacobh310/finance_dashboard_postgres
 Checkout the Web App: https://finance-sentiment-dash.herokuapp.com/
 
 ## Stock Financial Page
